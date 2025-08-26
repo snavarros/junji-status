@@ -1,0 +1,17 @@
+FROM node:24-slim
+
+WORKDIR /app
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Limpiar si existe node_modules y reinstalar
+RUN rm -rf node_modules package-lock.json
+RUN npm install
+
+# Copiar el resto del código
+COPY . .
+
+EXPOSE 3000
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
+
